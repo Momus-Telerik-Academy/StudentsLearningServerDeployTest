@@ -42,30 +42,56 @@
 
                     $("#btn-topic-add").on("click", function (e) {
                         e.preventDefault();
-                        console.log("clickedeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
 
                         var newExample = {
                             description: $("#tb-example-description").val(),
                             content: $("#tb-example-content").val()
                         };
 
-                        var video_id = $("#tb-topic-video").val().split("v=")[1];
-                        var ampersandPosition = video_id.indexOf("&");
-                        if (ampersandPosition != -1) {
-                            video_id = video_id.substring(0, ampersandPosition);
+
+                        var video_id;
+                        console.log($("#tb-topic-title").val());
+                        if ($("#tb-topic-title").val() === "") {
+                            toastr.warning('Topic title field is required');
+                            console.log('here')
                         }
+                        else if ($("#tb-topic-content").val() === "") {
+                            toastr.warning('Topic content field is required');
+                        }
+                        else if (($("#tb-topic-video").val() === "")) {
+                            toastr.warning('Video field is required');
+                        }
+                        else {
+                            video_id = $("#tb-topic-video").val().split("v=")[1];
+                            if (video_id === undefined) {
+                                toastr.warning('Invalid youtube url address');
+                            }
+                            var ampersandPosition = video_id.indexOf("&");
+                            if (ampersandPosition != -1) {
+                                video_id = video_id.substring(0, ampersandPosition);
+                            }
+                            if ($("#tb-example-description").val() === undefined && $("#tb-example-content").val() === undefined) {
+                                var newTopic = {
+                                    title: $("#tb-topic-title").val(),
+                                    content: $("#tb-topic-content").val(),
+                                    videoId: video_id,
+                                    sectionId: sectionModel.currentId().toString(),
+                                    examples: []
+                                };
+                            }
+                            else {
+                                var newTopic = {
+                                    title: $("#tb-topic-title").val(),
+                                    content: $("#tb-topic-content").val(),
+                                    videoId: video_id,
+                                    sectionId: sectionModel.currentId().toString(),
+                                    examples: [
+                                        newExample
+                                    ]
+                                };
+                            }
 
-                        var newTopic = {
-                            title: $("#tb-topic-title").val(),
-                            content: $("#tb-topic-content").val(),
-                            videoId: video_id,
-                            sectionId: sectionModel.currentId().toString(),
-                            examples: [
-                                newExample
-                            ]
-                        };
-
-                        topicModel.add(newTopic)
+                            topicModel.add(newTopic)
                             .then(function (id) {
                                 // var id = topicModel.currentId() ? topicModel.currentId() : 1;
                                 topicModel.currentId(id);
@@ -74,9 +100,9 @@
                             }, function (err) {
                                 console.log(err);
                             }).then(function () {
-                                notificationController.publish('new topic added');
+                                notificationController.publish('New topic has been added');
                             });
-
+                        }
                     });
                 }, function (err) {
                     //console.log(err);
