@@ -17,7 +17,7 @@
         }
         
         $.ajax({
-            url: 'http://localhost:56350/api/topics/upload/' + id,
+            url: 'http://e-academy-fast.azurewebsites.net/api/topics/upload/' + id,
             data: formDataFile,
             cache: false,
             contentType: false,
