@@ -28,7 +28,7 @@
                 alert('Debug: Zip uploaded and added to db!');
             },
             error: function (err) {
-                console.log(err)
+                
             }
         });
 

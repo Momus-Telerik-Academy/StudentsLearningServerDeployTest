@@ -14,7 +14,7 @@
         //    })
         appManager.loadView("categories", context, false, categoryModel.all, false)
             .then(function () {
-                categoryModel.all().then(function (data) { console.log(data) });
+                categoryModel.all().then(function (data) {  });
                 $("#btn-add").on("click", function () {
                     categoryModel.add($("#tb-new-category-name").val());
                 });
@@ -29,7 +29,6 @@
     }
 
     function byId(context) {
-        console.log('categories');
         categoryModel.currentId(+context.params["categoryId"]);
         var category;
 
@@ -52,7 +51,6 @@
             appManager.loadView("add-category", context)
                 .then(function () {
                     $("#btn-category-add").on("click", function () {
-                        console.log($("#tb-category-add").val());
                         categoryModel.add({ name: $("#tb-category-add").val() })
                             .then(function () {
                                 notificationController.publish('new category added');

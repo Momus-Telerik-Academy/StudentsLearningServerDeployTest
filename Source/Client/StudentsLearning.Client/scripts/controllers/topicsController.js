@@ -2,6 +2,7 @@
 
     function byId(context) {
         var topicId = +context.params['topicId'];
+        topicModel.currentId(topicId);
         categoryModel.currentId(+context.params['categoryId']);
         sectionModel.currentId(+context.params['sectionId'])
 
@@ -24,7 +25,6 @@
             eventManager.attachDislikeEvent();
         }, function (err) {
             toastr.error(err);
-            console.log(err);
         });
     }
 
@@ -50,10 +50,10 @@
 
 
                         var video_id;
-                        console.log($("#tb-topic-title").val());
+                       
                         if ($("#tb-topic-title").val() === "") {
                             toastr.warning('Topic title field is required');
-                            console.log('here')
+                          
                         }
                         else if ($("#tb-topic-content").val() === "") {
                             toastr.warning('Topic content field is required');
@@ -98,7 +98,6 @@
                                 uploadController.upload(id);
 
                             }, function (err) {
-                                console.log(err);
                             }).then(function () {
                                 notificationController.publish('New topic has been added');
                             });
@@ -173,7 +172,7 @@
                     }
 
                     topicModel.edit(topicModel.currentId(), updatedTopic);
-                    console.log(updatedTopic);
+                   
                 });
             });
         }

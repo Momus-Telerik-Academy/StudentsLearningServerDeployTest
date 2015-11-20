@@ -35,7 +35,8 @@
 
         public IHttpActionResult Get()
         {
-            return this.Ok(this.categories.All().ToList());
+            var result = this.categories.All().ToList();
+            return this.Ok(result);
         }
 
         public IHttpActionResult Get(int id)

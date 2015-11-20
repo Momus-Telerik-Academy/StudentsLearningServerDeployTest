@@ -37,9 +37,8 @@
         else {
             appManager.loadView("add-section", context, Constants.CATEGORY_CONTENT_WRAPPER)
                 .then(function (res) {
-                    console.log("after app");
                     $("#btn-section-add").on("click", function (e) {
-                        console.log("click?");
+                       
                         var newSection = {
                             Name: $("#tb-section-name").val(),
                             Description: $("#tb-section-description").val(),

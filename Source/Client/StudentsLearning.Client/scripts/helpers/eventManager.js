@@ -67,9 +67,8 @@
             var comment = $('#tb-comment').val();
             commentModel.add({ content: comment, topicid: topicModel.currentId() })
              .then(function (res) {
-                 console.log(res);
+                 location.reload();
              }, function (err) {
-                 console.log(err);
                  toastr.error(err);
              });
         });
